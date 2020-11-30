@@ -25,7 +25,9 @@ Before running the pipeline you must modify the resourcegroup name:
     ResourceGroup: letsencryt-func
 ```
 
-The resourcegroup name used in Azure is also used for storage account, app insights and the function app so pick something unique (with less than 23 characters to avoid hitting Azure limits; dashes are automatically dropped for storage account name).
+The resourcegroup name used in Azure is also used for storage account, app insights and the function app so pick something unique.
+
+:warning: Note that keyvault is limited to 23 characters and storage accounts are limited to 24 characters (and no dashes). The ARM template will automatically create a storage account from the resourcegroup name (without any dashes). Incase the name is still longer than 24 characters the storage account name is also truncated.
 
 Additionally you must set the `AZURE_CREDENTIALS` secret on your github repository.
 
@@ -71,6 +73,29 @@ By default the function is schedule to run daily and only updates the certificat
 
 To manually invoke it, call the endpoint `<your-function>.azurewebsites.net/api/execute`. Note that it is a POST endpoint.
 
-It currently requires no body but allows overrides via querystring:
+It currently allows a body (`application/json`) with overrides:
 
-* `newCertificate` - if set to `true` will issue new Let's Encrypt certificates for all sites even if the existing certificates haven't expired (this will also update the azure resources with the new certificates)
+``` json
+{
+    // if set to `true` new Let's Encrypt certificates are issued
+    // for all sites even if the existing certificates haven't expired
+    // (this will also update the azure resources with the new certificates)
+    "forceNewCertificates": true,
+    // optional parameter that limits the certificates to renew
+    // specifically it only renews certificates where at least one of the listed domains
+    // is included in the respective hostNames array of the config
+    // (only makes sense when forceNewCertificates is also true)
+    "domainsToUpdate": [
+        "example.com",
+        "blog.mysecondarydomain.com"
+    ]
+}
+```
+
+In the example above because `forceNewCertificates` is set to true certificates containing either hostname `example.com` or `blog.mysecondarydomain.com` (or both) are forcefully renewed. For other (non-matching) certificates renewal will only happen if they are close to expiry.
+
+For legacy reasons the following parameter can also be provided via query string which takes precedence over the `forceNewCertificates` parameter in the body:
+
+* `newCertificate=true`
+
+A warning is logged in such cases and the querystring parameter will be removed in a future version.
