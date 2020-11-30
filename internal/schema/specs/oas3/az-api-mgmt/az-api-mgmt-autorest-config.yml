@@ -1,0 +1,49 @@
+title: API Gateway & Management
+input-file:
+  - ./stable/2019-12-01/apimanagement.json
+  - ./stable/2019-12-01/apimapis.json
+  - ./stable/2019-12-01/apimapisByTags.json
+  - ./stable/2019-12-01/apimapiversionsets.json
+  - ./stable/2019-12-01/apimauthorizationservers.json
+  - ./stable/2019-12-01/apimbackends.json
+  - ./stable/2019-12-01/apimcaches.json
+  - ./stable/2019-12-01/apimcertificates.json
+  - ./stable/2019-12-01/apimcontenttypes.json
+  - ./stable/2019-12-01/apimdeployment.json
+  - ./stable/2019-12-01/apimdiagnostics.json
+  - ./stable/2019-12-01/apimemailtemplates.json
+  - ./stable/2019-12-01/apimgateways.json
+  - ./stable/2019-12-01/apimgroups.json
+  - ./stable/2019-12-01/apimidentityprovider.json
+  - ./stable/2019-12-01/apimissues.json
+  - ./stable/2019-12-01/apimloggers.json
+  - ./stable/2019-12-01/apimnamedvalues.json
+  - ./stable/2019-12-01/apimnetworkstatus.json
+  - ./stable/2019-12-01/apimnotifications.json
+  - ./stable/2019-12-01/apimopenidconnectproviders.json
+  - ./stable/2019-12-01/apimpolicies.json
+  - ./stable/2019-12-01/apimpolicydescriptions.json
+  - ./stable/2019-12-01/apimportalsettings.json
+  - ./stable/2019-12-01/apimproducts.json
+  - ./stable/2019-12-01/apimproductsByTags.json
+  - ./stable/2019-12-01/apimquotas.json
+  - ./stable/2019-12-01/apimregions.json
+  - ./stable/2019-12-01/apimreports.json
+  - ./stable/2019-12-01/apimsubscriptions.json
+  - ./stable/2019-12-01/apimtagresources.json
+  - ./stable/2019-12-01/apimtags.json
+  - ./stable/2019-12-01/apimtenant.json
+  - ./stable/2019-12-01/apimusers.json
+  - ./stable/2019-12-01/definitions.json
+
+output-artifact: 
+  - swagger-document.norm.json
+  - swagger-document.norm.yaml
+  - swagger-document.norm.json.map
+  - swagger-document.norm.yaml.map
+
+
+csharp:
+  output-folder: Client
+
+output-folder: Artifacts
